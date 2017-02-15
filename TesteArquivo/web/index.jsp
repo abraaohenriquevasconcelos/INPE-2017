@@ -12,7 +12,28 @@
 </head>
 <body>
     <div>
-        <p>https://www.caelum.com.br/apostila-java-web/apendice-topicos-da-servlet-api/#19-9-o-servletcontext-e-o-escopo-de-aplicacao</p>
+        <p>
+        As aplicações Web em Java têm 3 escopos possíveis: o request, o session, e um escopo global. Podemos
+        colocar um atributo no request com request.setAttribute() e ele estará disponível para todo o request
+        (desde a Action até o JSP, os filtros etc).
+        
+        Da mesma forma, podemos pegar o HttpSession e colocar um atributo com session.setAttribute() e o atributo
+        estará disponível na sessão daquele usuário através de vários requests.
+        
+        O terceiro escopo é um escopo global, onde os objetos são compartilhados na aplicação inteira, por todos os
+        usuários em todos os requests. É o chamado escopo de aplicação, acessível pelo ServletContext. Podemos, em 
+        uma Servlet, setar algum atributo usando: getServletContext().setAttribute("nomeGlobal", "valorGlobal");
+        Depois, podemos recuperar esse valor com: Object obj = getServletContext().getAttribute("nomeGlobal");
+        
+        Um bom uso é compartilhar configurações globais da aplicação, como por exemplo usuário e senha de um banco
+        de dados, ou algum objeto de cache compartilhado etc. Você pode, por exemplo, inicializar algum objeto global
+        usando um ServletContextListener e depois disponibilizá-lo no ServletContext para o resto da aplicação acessar.
+        
+        E como fazemos para acessar o escopo de aplicação no nosso JSP? Assim:
+        ServletContext application = getServletContext();
+        Portanto podemos utilizá-la através de scriptlet:
+        application.getAttribute("nomeGlobal")</p>
+        
         <img src="ss.png">
         <p>Testes:</p>
         <ul>
